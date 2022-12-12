@@ -5,10 +5,14 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { authenticate } = require("./middleware/authentication");
 const { todoRouter } = require("./routes/todo.route");
+const cors = require('cors')
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin : "*"
+}))
 app.post("/signup", async (req, res) => {
   const { email, password, age, name } = req.body;
   const checkEmail = await UserModel.find({ email });
